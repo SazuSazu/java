@@ -27,9 +27,16 @@ public class ToDoListController {
 
 
     //Add new
-    @PostMapping()
+    @PostMapping
     public ResponseEntity<ToDoListModel> addToDo(@RequestBody ToDoListModel toDoListModel) {
-        return null;
+
+        ToDoListModel createToDoList = dao.createToDoList(toDoListModel);
+
+        if(createToDoList != null){
+            return ResponseEntity.status(201).body(createToDoList);
+        }else{
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     //Update Status based on ID
